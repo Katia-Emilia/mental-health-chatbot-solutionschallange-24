@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot</title>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-log"></div>
+        <textarea id="user-input" placeholder="Type your message..." rows="4" cols="50"></textarea>
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        function sendMessage() {
+            var userInput = document.getElementById("user-input").value;
+            document.getElementById("chat-log").innerHTML += "<p>You: " + userInput + "</p>";
+
+            fetch(`/get?msg=${userInput}`)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("chat-log").innerHTML += "<p>Bot: " + data + "</p>";
+                });
+        }
+    </script>
+</body>
+</html>
